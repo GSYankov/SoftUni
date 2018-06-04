@@ -1,0 +1,12 @@
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.deps.json
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.dll
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.pdb
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.dll
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.pdb
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.csprojAssemblyReference.cache
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.csproj.CoreCompileInputs.cache
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.AssemblyInfoInputs.cache
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.AssemblyInfo.cs
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.csproj.CopyComplete
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.dll
+C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.pdb
