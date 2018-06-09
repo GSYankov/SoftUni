@@ -4,7 +4,6 @@
     //using System.IO;
 
     using Microsoft.EntityFrameworkCore;
-
     using P01_HospitalDatabase.Data;
     using P01_HospitalDatabase.Generators;
 
@@ -12,13 +11,21 @@
     {
         private static Random rnd = new Random();
 
+        public static void Migrate()
+        {
+            using (var context = new HospitalContext())
+            {
+                context.Database.Migrate();
+            }
+        }
+
         public static void ResetDatabase()
         {
             using (var context = new HospitalContext())
             {
                 context.Database.EnsureDeleted();
 
-                context.Database.EnsureCreated();
+                //context.Database.EnsureCreated();
                 context.Database.Migrate();
 
                 InitialSeed(context);

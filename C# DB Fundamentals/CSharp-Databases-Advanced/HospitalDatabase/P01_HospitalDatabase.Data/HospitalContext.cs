@@ -17,6 +17,7 @@
         public DbSet<Medicament> Medicaments { get; set; }
         public DbSet<PatientMedicament> PatientMedicament { get; set; }
         public DbSet<Visitation> Visitations { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -63,6 +64,10 @@
                 entity.HasOne(e => e.Patient).
                 WithMany(p => p.Visitations).
                 HasForeignKey(e => e.PatientId);
+
+                entity.HasOne(e => e.Doctor).
+                WithMany(e => e.Visitations).
+                HasForeignKey(e => e.DictorId);
             });
 
             modelBuilder.Entity<Diagnose>(entity =>
@@ -91,6 +96,20 @@
             modelBuilder.Entity<PatientMedicament>(entity =>
             {
                 entity.HasKey(e => e.PerscriptionId);
+
+            });
+
+            modelBuilder.Entity<Doctor>(entity =>
+            {
+                entity.HasKey(e => e.DoctorId);
+
+                entity.Property(e => e.Name).
+                IsRequired().
+                HasMaxLength(100);
+
+                entity.Property(e => e.Specialty).
+                IsRequired().
+                HasMaxLength(100);
             });
         }
     }
