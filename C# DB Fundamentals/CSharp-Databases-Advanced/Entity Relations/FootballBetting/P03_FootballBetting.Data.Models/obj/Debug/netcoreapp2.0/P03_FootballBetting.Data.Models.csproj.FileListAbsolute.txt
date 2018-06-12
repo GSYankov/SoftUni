@@ -1,8 +1,0 @@
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.deps.json
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.dll
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\bin\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.pdb
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.csproj.CoreCompileInputs.cache
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.AssemblyInfoInputs.cache
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.AssemblyInfo.cs
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.dll
-C:\Users\spook\source\repos\FootballBetting\P03_FootballBetting.Data.Models\obj\Debug\netcoreapp2.0\P03_FootballBetting.Data.Models.pdb
