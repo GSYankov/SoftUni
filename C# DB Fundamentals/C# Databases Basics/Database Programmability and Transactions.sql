@@ -84,16 +84,49 @@ SELECT FirstName, LastName
  GO
 
  --08. Delete Employees and Departments
- CREATE PROC usp_DeleteEmployeesFromDepartment (@departmentId INT) AS
- BEGIN
- DELETE Departments
- WHERE DepartmentID = @departmentId
- DELETE Employees
- WHERE DepartmentID = @departmentId
- SELECT COUNT(*) FROM Employees
- WHERE DepartmentID = @departmentId
- END
+ CREATE PROC usp_DeleteEmployeesFromDepartment (@departmentId INT)
+          AS
+ ALTER TABLE Departments
+ALTER COLUMN ManagerID INT NULL
 
+DELETE FROM EmployeesProjects
+ WHERE EmployeeID IN 
+	   (
+	   	SELECT EmployeeID FROM Employees
+	   	 WHERE DepartmentID = @departmentId
+	   )
+
+UPDATE Employees
+   SET ManagerID = NULL
+ WHERE ManagerID IN 
+	   (
+		SELECT EmployeeID FROM Employees
+		 WHERE DepartmentID = @departmentId
+	   )
+
+
+UPDATE Departments
+   SET ManagerID = NULL
+ WHERE ManagerID IN 
+	   (
+		SELECT EmployeeID FROM Employees
+		 WHERE DepartmentID = @departmentId
+	   )
+
+DELETE FROM Employees
+ WHERE EmployeeID IN 
+	   (
+	   	SELECT EmployeeID FROM Employees
+	   	WHERE DepartmentID = @departmentId
+	   )
+
+DELETE FROM Departments
+ WHERE DepartmentID = @departmentId
+SELECT COUNT(*)   AS [Employees Count] 
+ FROM Employees   AS e
+ JOIN Departments AS d
+   ON d.DepartmentID = e.DepartmentID
+WHERE e.DepartmentID = @departmentId
 GO
 
  --09. Find Full Name
@@ -144,13 +177,20 @@ END
 GO
 
 --13. *Cash in User Games Odd Rows
-CREATE FUNCTION ufn_CashInUsersGames (@game VARCHAR(20))
-RETURNS @rtnTable TABLE 
-(SumCash DECIMAL(10, 2) NOT NULL) AS
-BEGIN
-DECLARE @tmpTable
-
-END
+CREATE FUNCTION ufn_CashInUsersGames (@game VARCHAR(MAX))
+RETURNS TABLE 
+AS
+RETURN
+SELECT SUM(Cash) AS SumCash FROM 
+ (
+		       SELECT ug.Cash, 
+			          ROW_NUMBER() OVER(ORDER BY Cash DESC) AS RowNumber 
+		         FROM UsersGames AS ug
+		   INNER JOIN Games AS g
+		           ON g.Id = ug.GameId
+		        WHERE g.Name = @game
+  ) AS CashList
+ WHERE RowNumber % 2 = 1
 
 GO
 
@@ -165,7 +205,7 @@ END
 GO
 
 --15. Create Table Emails
-ALTER TRIGGER tr_Logs ON Logs AFTER INSERT AS
+CREATE TRIGGER tr_Logs ON Logs AFTER INSERT AS
 BEGIN
 	INSERT INTO NotificationEmails (Recipient, [Subject], Body)
 	SELECT i.AccountId,
@@ -217,4 +257,80 @@ BEGIN TRANSACTION
 
 	EXEC usp_DepositMoney @ReceiverId, @Amount
 COMMIT
+
+--20. *Massive Shopping
+      -- Stamat UserId = 9
+	  -- Safflower Game Id = 87
+	  -- UserGameId = 110
+
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS
+
+SELECT * FROM Users
+WHERE Username = 'Stamat'
+
+SELECT * FROM Games
+WHERE [Name] = 'Safflower'
+
+SELECT * FROM UsersGames
+WHERE UserId = 9 AND GameId = 87
+
+SELECT * FROM UserGameItems
+WHERE UserGameId = 110
+
+SELECT * FROM Items
+WHERE MinLevel = 11
+
+BEGIN TRANSACTION
+DECLARE @i INT
+DECLARE @tmpItemTable TABLE
+		(
+		Idx SMALLINT PRIMARY KEY IDENTITY(1,1),
+		ItemId INT,
+		Price DECIMAL(15, 4)
+		)
+DECLARE @NewGamerBalance DECIMAL(15, 4)
+
+INSERT INTO @tmpItemTable
+SELECT Id, Price FROM Items
+WHERE MinLevel = 11
+
+SET @NewGamerBalance = (SELECT Cash FROM UsersGames WHERE Id = 110)
+IF (@NewGamerBalance < 0)
+	BEGIN
+	ROLLBACK
+	RETURN
+END
+
+
+	ROLLBACK
+COMMIT
+	
+
+
+--21. Employees with Three Projects
+CREATE OR ALTER PROC usp_AssignProject(@emloyeeId, @projectID) AS
+BEGIN TRANSACTION
+
+	INSERT INTO EmployeesProjects
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
