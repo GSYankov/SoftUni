@@ -83,7 +83,7 @@ SELECT FirstName, LastName
 
  GO
 
- --08. Delete Employees and Departments
+ --08. Delete Employees and Departments * Dani Berova's solution with minimal corrections
  CREATE PROC usp_DeleteEmployeesFromDepartment (@departmentId INT)
           AS
  ALTER TABLE Departments
@@ -258,72 +258,129 @@ BEGIN TRANSACTION
 	EXEC usp_DepositMoney @ReceiverId, @Amount
 COMMIT
 
---20. *Massive Shopping
-      -- Stamat UserId = 9
-	  -- Safflower Game Id = 87
-	  -- UserGameId = 110
+--20. *Massive Shopping *Dani Berova's solution with errors stage correction
+DECLARE @gameName nvarchar(50) = 'Safflower'
+DECLARE @username nvarchar(50) = 'Stamat'
 
-SELECT * FROM INFORMATION_SCHEMA.COLUMNS
+DECLARE @userGameId int = (
+                           SELECT ug.Id 
+                           FROM UsersGames AS ug
+                           JOIN Users AS u ON ug.UserId = u.Id
+                           JOIN Games AS g ON ug.GameId = g.Id
+                           WHERE u.Username = @username AND g.Name = @gameName)
 
-SELECT * FROM Users
-WHERE Username = 'Stamat'
+DECLARE @userGameLevel int = (SELECT Level FROM UsersGames WHERE Id = @userGameId)
+DECLARE @itemsCost money, @availableCash money, @minLevel int, @maxLevel int
 
-SELECT * FROM Games
-WHERE [Name] = 'Safflower'
+SET @minLevel = 11
+SET @maxLevel = 12
+SET @availableCash = (SELECT Cash FROM UsersGames WHERE Id = @userGameId)
+SET @itemsCost = (SELECT SUM(Price) FROM Items WHERE MinLevel BETWEEN @minLevel AND @maxLevel)
 
-SELECT * FROM UsersGames
-WHERE UserId = 9 AND GameId = 87
+IF (@availableCash >= @itemsCost AND @userGameLevel >= @maxLevel) 
 
-SELECT * FROM UserGameItems
-WHERE UserGameId = 110
+BEGIN 
+  BEGIN TRANSACTION  
+  UPDATE UsersGames SET Cash -= @itemsCost WHERE Id = @userGameId 
+  IF(@@ROWCOUNT <> 1) 
+  BEGIN
+    ROLLBACK
+    RAISERROR('Could not make payment', 16, 1)
+  END
+  ELSE
+  BEGIN
+    INSERT INTO UserGameItems (ItemId, UserGameId) 
+    (SELECT Id, @userGameId FROM Items WHERE MinLevel BETWEEN @minLevel AND @maxLevel) 
 
-SELECT * FROM Items
-WHERE MinLevel = 11
-
-BEGIN TRANSACTION
-DECLARE @i INT
-DECLARE @tmpItemTable TABLE
-		(
-		Idx SMALLINT PRIMARY KEY IDENTITY(1,1),
-		ItemId INT,
-		Price DECIMAL(15, 4)
-		)
-DECLARE @NewGamerBalance DECIMAL(15, 4)
-
-INSERT INTO @tmpItemTable
-SELECT Id, Price FROM Items
-WHERE MinLevel = 11
-
-SET @NewGamerBalance = (SELECT Cash FROM UsersGames WHERE Id = 110)
-IF (@NewGamerBalance < 0)
-	BEGIN
-	ROLLBACK
-	RETURN
+    IF((SELECT COUNT(*) FROM Items WHERE MinLevel BETWEEN @minLevel AND @maxLevel) <> @@ROWCOUNT)
+    BEGIN
+      ROLLBACK; 
+      RAISERROR('Could not buy items', 16, 1)
+    END	
+    ELSE COMMIT;
+  END
 END
 
+SET @minLevel = 19
+SET @maxLevel = 21
+SET @availableCash = (SELECT Cash FROM UsersGames WHERE Id = @userGameId)
+SET @itemsCost = (SELECT SUM(Price) FROM Items WHERE MinLevel BETWEEN @minLevel AND @maxLevel)
 
-	ROLLBACK
-COMMIT
-	
+IF (@availableCash >= @itemsCost AND @userGameLevel >= @maxLevel) 
 
+BEGIN 
+  BEGIN TRANSACTION  
+  UPDATE UsersGames SET Cash -= @itemsCost WHERE Id = @userGameId 
+
+  IF(@@ROWCOUNT <> 1) 
+  BEGIN
+    ROLLBACK
+    RAISERROR('Could not make payment', 16, 2)
+  END
+  ELSE
+  BEGIN
+    INSERT INTO UserGameItems (ItemId, UserGameId) 
+    (SELECT Id, @userGameId FROM Items WHERE MinLevel BETWEEN @minLevel AND @maxLevel) 
+
+    IF((SELECT COUNT(*) FROM Items WHERE MinLevel BETWEEN @minLevel AND @maxLevel) <> @@ROWCOUNT)
+    BEGIN
+      ROLLBACK
+      RAISERROR('Could not buy items', 16, 2)
+    END	
+    ELSE COMMIT;
+  END
+END
+
+SELECT i.Name AS [Item Name]
+  FROM UserGameItems AS ugi
+  JOIN Items AS i ON i.Id = ugi.ItemId
+  JOIN UsersGames AS ug ON ug.Id = ugi.UserGameId
+  JOIN Games AS g ON g.Id = ug.GameId
+ WHERE g.Name = @gameName
+ ORDER BY [Item Name]
 
 --21. Employees with Three Projects
-CREATE OR ALTER PROC usp_AssignProject(@emloyeeId, @projectID) AS
+CREATE PROC usp_AssignProject(@emloyeeId INT, @projectID INT) AS
 BEGIN TRANSACTION
+DECLARE @empPrjCount SMALLINT
+ 
+	INSERT INTO EmployeesProjects VALUES
+	(@emloyeeId, @projectID)
 
-	INSERT INTO EmployeesProjects
+	SET @empPrjCount = (SELECT COUNT(ProjectID) AS PrjCount FROM EmployeesProjects
+	GROUP BY (EmployeeID)
+	HAVING EmployeeID = @emloyeeId)
 
+	IF (@empPrjCount > 3)
+	BEGIN
+		RAISERROR(N'The employee has too many projects!', 16, 1)
+		ROLLBACK
+		RETURN
+	END
 
+COMMIT
 
+GO
 
+--22. Delete Employees
+CREATE TABLE Deleted_Employees(
+EmployeeId INT, 
+FirstName VARCHAR(50), 
+LastName VARCHAR(50), 
+MiddleName VARCHAR(50), 
+JobTitle VARCHAR(50), 
+DepartmentId INT, 
+Salary DECIMAL(15, 4)
+CONSTRAINT PK_EmployeeId PRIMARY KEY (EmployeeId))
+GO
+-- Submit only the trigger creation statement
 
-
-
-
-
-
-
-
+CREATE TRIGGER tr_OnDeleteEmployees ON Employees AFTER DELETE AS
+BEGIN
+	INSERT INTO Deleted_Employees
+	SELECT FirstName, LastName, MiddleName, JobTitle, DepartmentID, Salary 
+	FROM deleted
+END
 
 
 
