@@ -11,7 +11,7 @@ namespace P01_HospitalDatabase.Data.Models
 
         public Medicament()
         {
-
+            this.Prescriptions = new HashSet<PatientMedicament>();
         }
 
         public int MedicamentId { get; set; }

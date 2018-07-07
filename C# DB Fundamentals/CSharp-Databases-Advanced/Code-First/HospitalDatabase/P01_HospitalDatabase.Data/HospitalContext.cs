@@ -24,7 +24,7 @@
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(Configuration.connectionString);
+                optionsBuilder.UseSqlServer(Configuration.ConnectionString);
             }
         }
 
@@ -76,12 +76,12 @@
                 WithMany(p => p.Visitations).
                 HasForeignKey(e => e.PatientId);
 
-                entity.Property(e => e.DictorId).
+                entity.Property(e => e.DoctorId).
                 IsRequired(false);
 
                 entity.HasOne(e => e.Doctor).
                 WithMany(e => e.Visitations).
-                HasForeignKey(e => e.DictorId);
+                HasForeignKey(e => e.DoctorId);
             });
 
             modelBuilder.Entity<Diagnose>(entity =>

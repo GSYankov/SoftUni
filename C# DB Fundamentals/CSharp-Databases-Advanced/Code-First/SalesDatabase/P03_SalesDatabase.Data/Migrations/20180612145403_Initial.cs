@@ -16,7 +16,7 @@ namespace P03_SalesDatabase.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 80, nullable: false),
                     Email = table.Column<string>(unicode: false, maxLength: 80, nullable: true),
-                    CreaditCardNumber = table.Column<string>(nullable: true)
+                    CreditCardNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

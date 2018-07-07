@@ -23,7 +23,7 @@ namespace P03_SalesDatabase.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(Configuration.connectionString);
+                optionsBuilder.UseSqlServer(Configuration.ConnectionString);
             }
         }
 

@@ -25,7 +25,7 @@ namespace P03_SalesDatabase.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreaditCardNumber");
+                    b.Property<string>("CreditCardNumber");
 
                     b.Property<string>("Email")
                         .HasMaxLength(80)
