@@ -8,7 +8,7 @@ namespace P03_FootballBetting.Data.Models
 
         public Team()
         {
-            this.Pleyers = new HashSet<Player>();
+            this.Players = new HashSet<Player>();
             this.HomeGames = new HashSet<Game>();
             this.AwayGames = new HashSet<Game>();
         }
@@ -30,7 +30,7 @@ namespace P03_FootballBetting.Data.Models
         public int TownId { get; set; }
         public Town Town { get; set; }
 
-        public ICollection<Player> Pleyers { get; set; }
+        public ICollection<Player> Players { get; set; }
         public ICollection<Game> HomeGames { get; set; }
         public ICollection<Game> AwayGames { get; set; }
 

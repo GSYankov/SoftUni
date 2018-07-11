@@ -18,7 +18,7 @@ namespace P03_FootballBetting.Data
         public DbSet<Town> Towns { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Player> Players { get; set; }
-        public DbSet<PlayerStatistic> PlayerStatictics { get; set; }
+        public DbSet<PlayerStatistic> PlayerStatistics { get; set; }
         public DbSet<Position> Positions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -104,11 +104,11 @@ namespace P03_FootballBetting.Data
                 HasDefaultValue(false);
 
                 entity.HasOne(e => e.Team).
-                WithMany(t => t.Pleyers).
+                WithMany(t => t.Players).
                 HasForeignKey(e => e.TeamId);
 
                 entity.HasOne(e => e.Position).
-                WithMany(t => t.Pleyers).
+                WithMany(t => t.Players).
                 HasForeignKey(e => e.PositionId);
             });
 
@@ -124,11 +124,11 @@ namespace P03_FootballBetting.Data
                 entity.HasKey(e => new { e.GameId, e.PlayerId });
 
                 entity.HasOne(e => e.Game).
-                WithMany(g => g.PlayerStatictics).
+                WithMany(g => g.PlayerStatistics).
                 HasForeignKey(e => e.GameId);
 
-                entity.HasOne(e => e.Pleyer).
-                WithMany(p => p.PlayerStatictics).
+                entity.HasOne(e => e.Player).
+                WithMany(p => p.PlayerStatistics).
                 HasForeignKey(e => e.PlayerId);
             });
 

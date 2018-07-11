@@ -9,6 +9,6 @@ namespace P03_FootballBetting.Data.Models
         public int PositionId { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Player> Pleyers { get; set; }
+        public ICollection<Player> Players { get; set; }
     }
 }
