@@ -1,0 +1,54 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ChushkaUser> SignInManager
+@inject UserManager<ChushkaUser> UserManager
+
+@if (this.User.IsInRole("User"))
+{
+    <ul class="navbar-nav right-side">
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Home" asp-action="Index"></a>
+        </li>
+    </ul>
+    <ul class="navbar-nav left-side">
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Users" asp-action="Logout">Logout, @this.User.Identity.Name</a>
+        </li>
+    </ul>
+
+}
+else if (this.User.IsInRole("Admin"))
+{
+    <ul class="navbar-nav right-side">
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Home" asp-action="Index"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Admin" asp-action="Create">Create product</a>
+        </li>
+        <li>
+            <a class="nav-link nav-link-white" asp-controller="Orders" asp-action="AllOrders">All orders</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav left-side">  
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Users" asp-action="Logout">Logout, @this.User.Identity.Name</a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="navbar-nav right-side">
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Home" asp-action="Index"></a>
+        </li>
+    </ul>
+    <ul class="navbar-nav left-side">
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Users" asp-action="Login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link nav-link-white" asp-controller="Users" asp-action="Register">Register</a>
+        </li>
+    </ul>
+}
