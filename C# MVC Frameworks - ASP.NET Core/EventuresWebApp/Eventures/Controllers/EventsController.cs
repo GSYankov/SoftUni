@@ -1,7 +1,9 @@
-﻿using Eventures.Data;
+﻿using CSCoreLogging.LogProvider;
+using Eventures.Data;
 using Eventures.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,13 @@ namespace Eventures.Controllers
     {
         private readonly EventuresDbContext db;
 
-        public EventsController(EventuresDbContext context)
+        private readonly ILogger<EventsController> _logger;
+
+        public EventsController(EventuresDbContext context,
+            ILogger<EventsController> logger)
         {
             this.db = context;
+            this._logger = logger;
         }
 
         public IActionResult AllEvents()
@@ -27,6 +33,7 @@ namespace Eventures.Controllers
                 AllEvents = events
             };
 
+            _logger.LogDebug((int)LoggingEvents.CONTROLLER_ACCESSED, "Show all events.");
             return View(model);
         }
 

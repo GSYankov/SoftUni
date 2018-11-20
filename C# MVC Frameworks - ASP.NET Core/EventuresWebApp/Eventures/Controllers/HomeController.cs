@@ -5,11 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Eventures.ViewModels;
+using Eventures.Filters;
 
 namespace Eventures.Controllers
 {
     public class HomeController : Controller
     {
+        [TypeFilter(typeof(LoggerResourceFilter))]
         public IActionResult Index()
         {
             if (this.User.Identity.Name != null)

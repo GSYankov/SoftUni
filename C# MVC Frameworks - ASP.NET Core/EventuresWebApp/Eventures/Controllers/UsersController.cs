@@ -63,11 +63,6 @@ namespace Eventures.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Register(DoRegisterViewModel model)
         {
-            if (model.Password == model.ConfirmPassword)
-            {
-                RedirectToAction("Register", "Users");
-            }
-
             if (ModelState.IsValid)
             {
                 var user = new EventuresUser
@@ -80,11 +75,12 @@ namespace Eventures.Controllers
                 };
 
                 await this.userManager.CreateAsync(user, model.Password);
-                await this.userManager.AddToRoleAsync(user, "User");                    
+                await this.userManager.AddToRoleAsync(user, "User");
+                return RedirectToAction("Login", "Users");
             };
 
 
-            return RedirectToAction("Login", "Users");
+            return View(model);
         }
 
         [Authorize]

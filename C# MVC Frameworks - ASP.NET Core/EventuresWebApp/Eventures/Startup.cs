@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Eventures.Data;
@@ -14,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Eventures.Infrastructure.Extensions;
 using Eventures.Models;
+using Microsoft.Extensions.Logging;
+using CSCoreLogging.LogProvider;
 
 namespace Eventures
 {
@@ -46,7 +43,7 @@ namespace Eventures
             {
                 options.SignIn.RequireConfirmedEmail = false;
                 options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 3;
+                options.Password.RequiredLength = 5;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
@@ -61,8 +58,12 @@ namespace Eventures
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+            loggerFactory.AddContext(LogLevel.Trace, Configuration.GetConnectionString("LoggerDatabase"));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

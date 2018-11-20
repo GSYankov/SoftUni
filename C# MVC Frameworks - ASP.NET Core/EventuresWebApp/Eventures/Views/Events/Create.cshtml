@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CreateEventViewModel
+@{
     ViewData["Title"] = "Create Event";
 }
 
@@ -6,37 +7,38 @@
     <h1 class="text text-center">@ViewData["Title"]</h1>
     <div class="d-flex justify-content-center">
         <form class="text-center flex" asp-controller="Events" asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger text-left"></div>
             <hr class="hr-login">
             <div class="form-row">
                 <div class="col col-md-5 mr-4 ml-4">
-                    <label for="username">Name</label>
-                    <input class="form-control" type="text" name="Name" placeholder="Name..." required>
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Event name..." required>
                 </div>
                 <div class="col col-md-5 ml-4 mr-2">
-                    <label for="email">Place</label>
-                    <input class="form-control" type="text" name="Place" placeholder="Place..." required>
+                    <label asp-for="Place">Place</label>
+                    <input asp-for="Place" class="form-control" placeholder="Place..." required>
                 </div>
             </div>
             <hr class="hr-login">
             <div class="form-row">
                 <div class="col col-md-5 mr-4 ml-4">
-                    <label for="password">Start</label>
-                    <input class="form-control" type="datetime-local" name="Start" required>
+                    <label asp-for="Start">Start</label>
+                    <input asp-for="Start" class="form-control" type="datetime-local" required>
                 </div>
                 <div class="col col-md-5 ml-4 mr-2">
-                    <label for="confirmPassword">End</label>
-                    <input class="form-control" type="datetime-local" name="End" required>
+                    <label asp-for="End">End</label>
+                    <input asp-for="End" class="form-control" type="datetime-local" required>
                 </div>
             </div>
             <hr class="hr-login">
             <div class="form-row">
                 <div class="col col-md-5 mr-4 ml-4">
-                    <label for="firstName">Total Tickets</label>
-                    <input class="form-control" type="number" name="totaltickets" value="1999" required>
+                    <label asp-for="TotalTickets">Total Tickets</label>
+                    <input asp-for="TotalTickets" class="form-control" type="number" required>
                 </div>
                 <div class="col col-md-5 ml-4 mr-2">
-                    <label for="lastName">Price Per Ticket</label>
-                    <input class="form-control" type="text" name="priceperticket" value="59" required>
+                    <label asp-for="PricePerTicket">Price Per Ticket</label>
+                    <input asp-for="PricePerTicket" class="form-control" type="text" required>
                 </div>
             </div>
             <hr class="hr-login">
@@ -46,3 +48,7 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
