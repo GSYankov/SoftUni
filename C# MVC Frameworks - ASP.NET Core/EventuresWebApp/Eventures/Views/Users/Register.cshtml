@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container-fluid">
+    <h1 class="text text-center">@ViewData["Title"]</h1>
+    <div class="d-flex justify-content-center align-items-center container">
+        <form class="text-center" asp-controller="Users" asp-action="Register" method="post">
+            <hr class="hr-login">
+            <div class="form-row">
+                <div class="col col-md-5 mr-4 ml-4">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" name="username" placeholder="Username..." required>
+                </div>
+                <div class="col col-md-5 ml-4 mr-2">
+                    <label for="email">Email</label>
+                    <input class="form-control" type="text" name="email" placeholder="Email..." required>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col col-md-5 mr-4 ml-4">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" name="password" placeholder="Password..." required>
+                </div>
+                <div class="col col-md-5 ml-4 mr-2">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input class="form-control" type="password" name="confirmPassword" placeholder="Confirm Password..." required>
+                </div>
+            </div>
+            <hr class="hr-login">
+            <div class="form-row">
+                <div class="col col-md-5 mr-4 ml-4">
+                    <label for="firstName">First Name</label>
+                    <input class="form-control" type="text" name="firstName" placeholder="First Name..." required>
+                </div>
+                <div class="col col-md-5 ml-4 mr-2">
+                    <label for="lastName">Last Name</label>
+                    <input class="form-control" type="text" name="lastName" placeholder="Last Name..." required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="text text-center col-md-12 px-4 ml-1">
+                    <label for="uniqueCitizenNumber">UCN</label>
+                    <input class="form-control" type="text" name="ucn" placeholder="UCN..." required>
+                </div>
+            </div>
+            <hr class="hr-login">
+            <div class="text text-center">
+                <button type="submit" class="btn eventures-bg-colour">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

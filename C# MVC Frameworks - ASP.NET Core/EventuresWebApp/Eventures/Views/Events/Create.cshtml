@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Create Event";
+}
+
+<div class="container-fluid">
+    <h1 class="text text-center">@ViewData["Title"]</h1>
+    <div class="d-flex justify-content-center">
+        <form class="text-center flex" asp-controller="Events" asp-action="Create" method="post">
+            <hr class="hr-login">
+            <div class="form-row">
+                <div class="col col-md-5 mr-4 ml-4">
+                    <label for="username">Name</label>
+                    <input class="form-control" type="text" name="Name" placeholder="Name..." required>
+                </div>
+                <div class="col col-md-5 ml-4 mr-2">
+                    <label for="email">Place</label>
+                    <input class="form-control" type="text" name="Place" placeholder="Place..." required>
+                </div>
+            </div>
+            <hr class="hr-login">
+            <div class="form-row">
+                <div class="col col-md-5 mr-4 ml-4">
+                    <label for="password">Start</label>
+                    <input class="form-control" type="datetime-local" name="Start" required>
+                </div>
+                <div class="col col-md-5 ml-4 mr-2">
+                    <label for="confirmPassword">End</label>
+                    <input class="form-control" type="datetime-local" name="End" required>
+                </div>
+            </div>
+            <hr class="hr-login">
+            <div class="form-row">
+                <div class="col col-md-5 mr-4 ml-4">
+                    <label for="firstName">Total Tickets</label>
+                    <input class="form-control" type="number" name="totaltickets" value="1999" required>
+                </div>
+                <div class="col col-md-5 ml-4 mr-2">
+                    <label for="lastName">Price Per Ticket</label>
+                    <input class="form-control" type="text" name="priceperticket" value="59" required>
+                </div>
+            </div>
+            <hr class="hr-login">
+            <div class="text text-center">
+                <button type="submit" class="btn eventures-bg-colour">Create Event</button>
+            </div>
+        </form>
+    </div>
+</div>
