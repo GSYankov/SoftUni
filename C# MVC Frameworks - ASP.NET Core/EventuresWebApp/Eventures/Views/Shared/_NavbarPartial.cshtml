@@ -5,20 +5,36 @@
             <li class="nav-item">
                 <a class="nav-link eventures-bg-colour" href="/">Home</a>
             </li>
-            @if (User.Identity.IsAuthenticated)
+            @if (this.User.Identity.IsAuthenticated)
             {
                 <li class="dropdown">
                     <a class="nav-link dropdown-toggle eventures-bg-colour" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                        Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" asp-controller="Events" asp-action="AllEvents">All Events</a>
+
                         @if (User.IsInRole("Admin"))
                         {
                             <a class="dropdown-item" asp-controller="Events" asp-action="Create">Create event</a>
                         }
+                        else
+                        {
+                            <a class="dropdown-item" asp-controller="Events" asp-action="MyEvents">My Events</a>
+                        }
                     </div>
                 </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle eventures-bg-colour" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Orders
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Orders" asp-action="AllOrders">All Orders</a>
+                        </div>
+                    </li>
+                }
             }
         </ul>
     </div>

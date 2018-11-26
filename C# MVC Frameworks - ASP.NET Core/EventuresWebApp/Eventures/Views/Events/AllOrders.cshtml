@@ -1,0 +1,35 @@
+﻿@model AllOrdersViewModel
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr class="hr-allevents hr-login" />
+<table class="table w-75 mx-auto table-hover">
+    <thead>
+        <tr class="row">
+            <th class="col-md-1">#</th>
+            <th class="col-md-4">Event</th>
+            <th class="col-md-3">Customer</th>
+            <th class="col-md-2">CreatedOn</th>
+            <th class="col-md-2">Tickets Purchased</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var i = 1;
+            foreach (var order in Model.Orders)
+            {
+                <tr class="row">
+                    <td class="col-md-1">@i</td>
+                    <td class="col-md-4">@order.Event</td>
+                    <td class="col-md-3">@order.Customer</td>
+                    <td class="col-md-2">@order.CreatedOn</td>
+                    <td class="col-md-2">@order.Tickets</td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+</table>
+<hr class="hr-allevents hr-login" />

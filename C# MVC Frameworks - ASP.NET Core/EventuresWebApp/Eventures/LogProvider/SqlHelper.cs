@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Eventures.Models;
+using Microsoft.Extensions.Configuration;
+using Eventures;
 
 namespace CSCoreLogging.LogProvider
 {
@@ -13,7 +15,7 @@ namespace CSCoreLogging.LogProvider
 
         public SqlHelper(string connectionStr)
         {
-            ConnectionString = "Server=.;Database=Eventures;Trusted_Connection=True;MultipleActiveResultSets=true";
+            ConnectionString = connectionStr;
         }
 
         private bool ExecuteNonQuery(string commandStr, List<SqlParameter> paramList)

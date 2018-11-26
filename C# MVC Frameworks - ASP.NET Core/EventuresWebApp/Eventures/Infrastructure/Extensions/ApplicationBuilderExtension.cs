@@ -17,7 +17,7 @@ namespace Eventures.Infrastructure.Extensions
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetRequiredService<EventuresDbContext>().Database.Migrate();
+                //serviceScope.ServiceProvider.GetRequiredService<EventuresDbContext>().Database.Migrate();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<EventuresUser>>();
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var db = serviceScope.ServiceProvider.GetService<EventuresDbContext>();

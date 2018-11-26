@@ -60,9 +60,9 @@ namespace Eventures
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-            loggerFactory.AddContext(LogLevel.Trace, Configuration.GetConnectionString("LoggerDatabase"));
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
+            //loggerFactory.AddContext(LogLevel.Trace, Configuration.GetConnectionString("DefaultConnection"));
 
             if (env.IsDevelopment())
             {

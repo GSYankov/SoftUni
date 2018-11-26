@@ -1,0 +1,35 @@
+﻿@model EventsViewModel
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr class="hr-allevents hr-login" />
+<table class="table w-75 mx-auto table-hover">
+    <thead>
+        <tr class="row">
+            <th class="col-md-1">#</th>
+            <th class="col-md-4">Name</th>
+            <th class="col-md-2">Start</th>
+            <th class="col-md-2">End</th>
+            <th class="col-md-3">Place</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var i = 1;
+            foreach (var evt in Model.AllEvents)
+            {
+                <tr class="row">
+                    <td class="col-md-1">@i</td>
+                    <td class="col-md-4">@evt.Name</td>
+                    <td class="col-md-2">@evt.Start</td>
+                    <td class="col-md-2">@evt.End</td>
+                    <td class="col-md-3">@evt.Place</td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+</table>
+<hr class="hr-allevents hr-login" />
