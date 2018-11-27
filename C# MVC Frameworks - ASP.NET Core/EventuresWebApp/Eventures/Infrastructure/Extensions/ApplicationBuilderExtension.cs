@@ -36,24 +36,22 @@ namespace Eventures.Infrastructure.Extensions
             {
                 return;
             }
-            var newEvent = new Eventures.Models.Event
+            var newEvent = new Eventures.Models.Event(999)
             {
                 Name = "Mile Kitich",
                 Place = "Враца",
                 PricePerTicket = 19,
-                TotalTickets = 999,
                 Start = DateTime.UtcNow.AddDays(14),
                 End = DateTime.UtcNow.AddDays(14).AddHours(6)
             };
             db.Events.Add(newEvent);
             db.SaveChanges();
 
-            newEvent = new Eventures.Models.Event
+            newEvent = new Eventures.Models.Event(45999)
             {
                 Name = "Jon Bon Jovi",
                 Place = "София",
                 PricePerTicket = 99,
-                TotalTickets = 45999,
                 Start = DateTime.UtcNow.AddDays(21),
                 End = DateTime.UtcNow.AddDays(21).AddHours(6)
             };

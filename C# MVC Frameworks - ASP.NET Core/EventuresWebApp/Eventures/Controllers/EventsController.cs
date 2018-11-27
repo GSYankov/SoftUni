@@ -1,4 +1,5 @@
-﻿using CSCoreLogging.LogProvider;
+﻿using AutoMapper;
+using CSCoreLogging.LogProvider;
 using Eventures.Data;
 using Eventures.Models;
 using Eventures.ViewModels;
@@ -21,17 +22,20 @@ namespace Eventures.Controllers
         private readonly ILogger<EventsController> _logger;
 
         private readonly UserManager<EventuresUser> userManager;
+        private readonly IMapper mapper;
 
         public EventsController(EventuresDbContext context,
             ILogger<EventsController> logger,
-            UserManager<EventuresUser> userManager)
+            UserManager<EventuresUser> userManager,
+            IMapper mapper)
         {
             this.db = context;
             this._logger = logger;
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
-        public async Task<IActionResult> AllEvents()
+        public async Task<IActionResult> AllEvents(MyErrorViewModel myError)
         {
             if (this.User.IsInRole("Admin"))
             {
@@ -55,51 +59,33 @@ namespace Eventures.Controllers
                 Name = o.Name,
                 Start = o.Start,
                 End = o.End,
-                Tickets = 0
+                Tickets = 0,
+                TicketsLeft = o.TicketsLeft
             }).ToList();
 
             var model = new OrdersViewModel
             {
-                Orders = events
+                Orders = events,
+                OrderError = myError.ErrorMessage
             };
 
             _logger.LogDebug((int)LoggingEvents.CONTROLLER_ACCESSED, "Show all events.");
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AllEvents(OrderViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
-                var evt = this.db.Events.FirstOrDefault(e => e.Id.ToString() == model.EventId);
-                var order = new Order
-                {
-                    Event = evt,
-                    Customer = user,
-                    TicketCount = model.Tickets
-                };
 
-                this.db.Orders.Add(order);
-                this.db.SaveChanges();
-                return RedirectToAction("MyEvents");
-            }
-
-            return this.View();
-        }
 
         public async Task<IActionResult> MyEvents()
         {
             var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
-            var events = this.db.Orders.Where(o => o.Customer == user).Select(o => new EventViewModel
+            var events = this.db.Orders.Where(o => o.Customer == user).Select(o => new EventViewModel(o.TicketCount)
             {
                 Name = o.Event.Name,
                 Start = o.Event.Start,
                 End = o.Event.End,
                 Place = o.Event.Place,
                 Tickets = o.TicketCount,
-                Price = o.Event.PricePerTicket*o.TicketCount
+                Price = o.Event.PricePerTicket * o.TicketCount
             }).ToList();
             var model = new EventsViewModel
             {
@@ -122,16 +108,7 @@ namespace Eventures.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newEvent = new Eventures.Models.Event
-                {
-                    Name = model.Name,
-                    Place = model.Place,
-                    Start = model.Start,
-                    End = model.End,
-                    TotalTickets = model.TotalTickets,
-                    PricePerTicket = model.PricePerTicket
-                };
-
+                var newEvent = mapper.Map<Eventures.Models.Event>(model);
                 this.db.Events.Add(newEvent);
                 this.db.SaveChanges();
             }

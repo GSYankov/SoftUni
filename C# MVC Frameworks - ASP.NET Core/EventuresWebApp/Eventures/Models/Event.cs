@@ -9,6 +9,12 @@ namespace Eventures.Models
 {
     public class Event
     {
+        public Event(int totalTickets)
+        {
+            this.TotalTickets = totalTickets;
+            this.TicketsLeft = totalTickets;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -22,6 +28,8 @@ namespace Eventures.Models
         public DateTime End { get; set; }
 
         public int TotalTickets { get; set; }
+
+        public int TicketsLeft { get; set; }
 
         public decimal PricePerTicket { get; set; }
     }

@@ -3,10 +3,9 @@ using Eventures.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using AutoMapper;
 
 namespace Eventures.Controllers
 {
@@ -14,12 +13,14 @@ namespace Eventures.Controllers
     {
         private UserManager<EventuresUser> userManager;
         private SignInManager<EventuresUser> signInManager;
+        private readonly IMapper mapper;
 
         public UsersController(UserManager<EventuresUser> userMgr,
-                SignInManager<EventuresUser> signinMgr)
+                SignInManager<EventuresUser> signinMgr, IMapper mapper)
         {
             userManager = userMgr;
             signInManager = signinMgr;
+            this.mapper = mapper;
         }
 
         public IActionResult Login()
@@ -65,15 +66,7 @@ namespace Eventures.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new EventuresUser
-                {
-                    UserName = model.Username,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Ucn = model.Ucn
-                };
-
+                var user = mapper.Map<EventuresUser>(model);
                 await this.userManager.CreateAsync(user, model.Password);
                 await this.userManager.AddToRoleAsync(user, "User");
                 return RedirectToAction("Login", "Users");
@@ -90,8 +83,49 @@ namespace Eventures.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
+        public IActionResult FacebookLogin(string returnUrl)
+        {
+            string redirectUrl = Url.Action("FacebookResponse", "Users", new { ReturnUrl = returnUrl });
+            var properties = signInManager
+                .ConfigureExternalAuthenticationProperties("Facebook", redirectUrl);
+            return new ChallengeResult("Facebook", properties);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> FacebookResponse(string returnUrl = "/")
+        {
+            ExternalLoginInfo info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            var result = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+            if (result.Succeeded)
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                EventuresUser user = new EventuresUser
+                {
+                    Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
+                    UserName =
+                        info.Principal.FindFirst(ClaimTypes.Email).Value
+                };
+                IdentityResult identResult = await userManager.CreateAsync(user);
+                if (identResult.Succeeded)
+                {
+                    identResult = await userManager.AddLoginAsync(user, info);
+                    if (identResult.Succeeded)
+                    {
+                        await signInManager.SignInAsync(user, false);
+                        return Redirect(returnUrl);
+                    }
+                }
+                return RedirectToAction(nameof(Login));
+            }
+        }
 
     }
-
-
 }

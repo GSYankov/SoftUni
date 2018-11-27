@@ -16,5 +16,7 @@ namespace Eventures.ViewModels
 
         [Required]
         public string EventId { get; set; }
+
+        public string OrderError { get; set; }
     }
 }

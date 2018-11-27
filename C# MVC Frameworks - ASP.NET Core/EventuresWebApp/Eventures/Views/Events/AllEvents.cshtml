@@ -5,6 +5,12 @@
 
 <h1 class="text-center">All Events</h1>
 <hr class="hr-allevents hr-login" />
+@if (Model.OrderError != null)
+{
+    <div class="text-center text-danger">
+        <p>@Model.OrderError</p>
+    </div>
+}
 <table class="table w-75 mx-auto table-hover">
     <thead>
         <tr class="row">
@@ -37,15 +43,27 @@
                         <div asp-validation-summary="All"></div>
                         @order.End
                     </td>
-                    <td class="col-md-4 pt-1">
-                        <form asp-controller="Events" asp-action="AllEvents" method="post">
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <label asp-for="@Model.Tickets">Tickets</label>
-                            <input asp-for="@Model.Tickets" />
-                            <input asp-for="@Model.EventId" value="@order.EventId" hidden />
-                            <button type="submit" class="btn eventures-bg-colour mb-2">Order</button>
-                        </form>
-                    </td>
+                    @if (order.TicketsLeft > 0)
+                    {
+                        <td class="col-md-4 pt-1">
+                            <form asp-controller="Orders" asp-action="Create" method="post">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <label asp-for="@Model.Tickets">Tickets</label>
+                                <input asp-for="@Model.Tickets" />
+                                <input asp-for="@Model.EventId" value="@order.EventId" hidden />
+                                <button type="submit" class="btn eventures-bg-colour mb-2">Order</button>
+                            </form>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="col-md-4 pt-1">
+                            <div class="text-center text-danger pt-4">
+                                <p>Sold out!</p>
+                            </div>
+                        </td>
+                    }
+
                 </tr>
                 i++;
             }

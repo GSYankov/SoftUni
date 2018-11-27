@@ -19,5 +19,7 @@ namespace Eventures.ViewModels
         public EventuresUser Customer { get; set; }
 
         public int Tickets { get; set; }
+
+        public int TicketsLeft { get; set; }
     }
 }
