@@ -7,10 +7,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Eventures.Controllers
 {
@@ -35,7 +34,7 @@ namespace Eventures.Controllers
             this.mapper = mapper;
         }
 
-        public async Task<IActionResult> AllEvents(MyErrorViewModel myError)
+        public async Task<IActionResult> AllEvents(MyErrorViewModel myError, int? page)
         {
             if (this.User.IsInRole("Admin"))
             {
@@ -63,16 +62,24 @@ namespace Eventures.Controllers
                 TicketsLeft = o.TicketsLeft
             }).ToList();
 
+            var nextPage = page ?? 1;
+            var recordsPerPage = 3;
+            var pagedViewModels = events.ToPagedList(nextPage, recordsPerPage);
+
             var model = new OrdersViewModel
             {
-                Orders = events,
+                Orders = pagedViewModels,
                 OrderError = myError.ErrorMessage
             };
 
             _logger.LogDebug((int)LoggingEvents.CONTROLLER_ACCESSED, "Show all events.");
+
+            ViewData["CurrentPage"] = page ?? 1;
+            ViewData["RecordsPerPage"] = recordsPerPage;
+            ViewData["MyErrorOcurred"] = myError.ErrorMessage;
+
             return View(model);
         }
-
 
 
         public async Task<IActionResult> MyEvents()

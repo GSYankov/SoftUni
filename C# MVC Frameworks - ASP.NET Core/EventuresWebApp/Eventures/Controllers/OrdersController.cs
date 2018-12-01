@@ -44,7 +44,7 @@ namespace Eventures.Controllers
 
         [HttpPost]
         [Authorize(Roles = ("User"))]
-        public async Task<IActionResult> Create(OrderViewModel model)
+        public async Task<IActionResult> Create(OrdersViewModel model)
         {
             if (ModelState.IsValid)
             {

@@ -1,16 +1,21 @@
-﻿@model OrdersViewModel
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
+@model OrdersViewModel
+
 @{
     ViewData["Title"] = "All Events";
 }
 
-<h1 class="text-center">All Events</h1>
+<h1 class="text-center">@ViewData["Title"] = "All Events"</h1>
 <hr class="hr-allevents hr-login" />
-@if (Model.OrderError != null)
-{
-    <div class="text-center text-danger">
-        <p>@Model.OrderError</p>
-    </div>
-}
+
+
+<div class="text-center text-danger">
+    <p>@ViewData["MyErrorOcurred"]?.ToString()</p>
+</div>
+
+
 <table class="table w-75 mx-auto table-hover">
     <thead>
         <tr class="row">
@@ -22,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @{var i = 1;
+        @{var i = (int)ViewData["CurrentPage"] * (int)ViewData["RecordsPerPage"] - 2;
             foreach (var order in Model.Orders)
             {
                 <tr class="row">
@@ -71,6 +76,10 @@
     </tbody>
 </table>
 <hr class="hr-allevents hr-login" />
+
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager((IPagedList)Model.Orders, page => Url.Action("AllEvents", new { page = page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
