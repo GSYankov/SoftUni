@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Eventures.Areas.Administrator.ViewModels.UsersListViewModel>
+@{
+    ViewData["Title"] = "Users role revision";
+}
+
+@section Head{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Demote users</a></li>
+        <li><a href="#tabs-2">Promote users</a></li>
+    </ul>
+    <div id="tabs-1">
+        <hr class="hr-allevents hr-login" />
+        <table class="table w-75 mx-auto table-hover">
+            <thead>
+                <tr>
+                    <th class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th class="font-weight-bold">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    @if (user.IsAdmin)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Email)
+                            </td>
+                            <td>
+                                <form method="post" asp-area="Administrator" asp-controller="Users" asp-action="Demote">
+                                    <input name="userid" value="@user.Id" hidden />
+                                    <button type="submit" class="btn btn-primary">Demote</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <hr class="hr-allevents hr-login" />
+    </div>
+    <div id="tabs-2">
+        <hr class="hr-allevents hr-login" />
+        <table class="table w-75 mx-auto table-hover">
+            <thead>
+                <tr>
+                    <th class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th class="font-weight-bold">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th class="font-weight-bold">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    @if (!user.IsAdmin)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Email)
+                            </td>
+                            <td>
+                                <form method="post" asp-area="Administrator" asp-controller="Users" asp-action="Promote">
+                                    <input  name="userid" value="@user.Id" hidden/>
+                                    <button type="submit" class="btn btn-primary" >Promote</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <hr class="hr-allevents hr-login" />
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_JsTabs" />
+}

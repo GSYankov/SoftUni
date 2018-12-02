@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Eventures.Areas.Administrator.ViewModels.UsersListViewModel>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr class="hr-allevents hr-login" />
+<table class="table w-75 mx-auto table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>Action</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @if (!item.IsAdmin)
+                    {
+                        <button class="btn btn-primary" asp-action="Propote" asp-route-id="@item.Id">Promote</button>
+                    }
+                    else
+                    {
+                        <button class="btn text-danger" asp-action="Propote" asp-route-id="@item.Id">Demote</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr class="hr-allevents hr-login" />

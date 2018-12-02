@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Administrator\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Administrator\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Events\AllOrders.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -34,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
