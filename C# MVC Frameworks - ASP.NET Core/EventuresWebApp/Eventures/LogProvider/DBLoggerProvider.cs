@@ -10,7 +10,7 @@ namespace CSCoreLogging.LogProvider
     public class DBLoggerProvider : ILoggerProvider
     {
         private readonly Func<string, LogLevel, bool> _filter;
-        private string _connectionString;
+        private readonly string _connectionString;
 
         public DBLoggerProvider(Func<string, LogLevel, bool> filter, string connectionStr)
         {

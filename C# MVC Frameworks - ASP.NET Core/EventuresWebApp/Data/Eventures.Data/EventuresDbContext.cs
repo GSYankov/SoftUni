@@ -5,7 +5,7 @@ using Eventures.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Eventures.Areas.Administrator.ViewModels;
+//using Eventures.Areas.Administrator.ViewModels;
 
 namespace Eventures.Data
 {
@@ -24,7 +24,7 @@ namespace Eventures.Data
         {
         }
 
-        public DbSet<Eventures.Areas.Administrator.ViewModels.UsersListViewModel> UsersListViewModel { get; set; }
+ //       public DbSet<Eventures.Areas.Administrator.ViewModels.UsersListViewModel> UsersListViewModel { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
