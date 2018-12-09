@@ -1,5 +1,6 @@
 ﻿using Eventures.Data;
 using Eventures.Models;
+using Eventures.Services.Contracts;
 using Eventures.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,18 +16,24 @@ namespace Eventures.Controllers
     public class OrdersController : Controller
     {
         private readonly UserManager<EventuresUser> userManager;
-        private readonly EventuresDbContext db;
 
-        public OrdersController(UserManager<EventuresUser> userManager, EventuresDbContext db)
+        private readonly IEventuresOrdersService ordersService;
+        private readonly IEventuresEventService eventService;
+
+        public OrdersController(UserManager<EventuresUser> userManager,
+            IEventuresOrdersService ordersService,
+            IEventuresEventService eventService)
         {
             this.userManager = userManager;
-            this.db = db;
+            this.ordersService = ordersService;
+            this.eventService = eventService;
         }
+
 
         [Authorize(Roles = ("Admin"))]
         public IActionResult AllOrders()
         {
-            var orders = this.db.Orders.Select(o => new AllOrderViewModel
+            var orders = this.ordersService.GetAllOrders().Select(o => new AllOrderViewModel
             {
                 Customer = o.Customer.Email,
                 Event = o.Event.Name,
@@ -49,7 +56,7 @@ namespace Eventures.Controllers
             if (ModelState.IsValid)
             {
                 var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
-                var evt = this.db.Events.FirstOrDefault(e => e.Id.ToString() == model.EventId);
+                var evt = this.eventService.FindById(model.EventId);
                 var order = new Order
                 {
                     Event = evt,
@@ -67,8 +74,7 @@ namespace Eventures.Controllers
                 }
 
                 evt.TicketsLeft -= model.Tickets;
-                this.db.Orders.Add(order);
-                this.db.SaveChanges();
+                this.ordersService.AddOrder(order);
                 return RedirectToAction("MyEvents", "Events");
             }
 

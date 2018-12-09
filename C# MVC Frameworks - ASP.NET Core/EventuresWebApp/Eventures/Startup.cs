@@ -13,6 +13,12 @@ using Microsoft.Extensions.Logging;
 using CSCoreLogging.LogProvider;
 using AutoMapper;
 using Eventures.ViewModels;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authorization;
+using Eventures.Services.Contracts;
+using Eventures.Services;
 
 namespace Eventures
 {
@@ -28,6 +34,7 @@ namespace Eventures
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -58,7 +65,7 @@ namespace Eventures
 
             services.AddAutoMapper();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
@@ -66,6 +73,12 @@ namespace Eventures
                     facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 });
+
+            services.AddScoped<IEventuresEventService, EventuresEventService>();
+            services.AddScoped<IEventuresOrdersService, EventuresOrdersService>();
+            services.AddScoped<IEventuresUsersService, EventuresUsersService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,6 +2,7 @@
 using CSCoreLogging.LogProvider;
 using Eventures.Data;
 using Eventures.Models;
+using Eventures.Services.Contracts;
 using Eventures.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,21 +17,24 @@ namespace Eventures.Controllers
     [Authorize]
     public class EventsController : Controller
     {
-        private readonly EventuresDbContext db;
-
         private readonly ILogger<EventsController> _logger;
 
         private readonly UserManager<EventuresUser> userManager;
+        private readonly IEventuresEventService eventService;
+        private readonly IEventuresOrdersService ordersService;
         private readonly IMapper mapper;
 
-        public EventsController(EventuresDbContext context,
+        public EventsController(
             ILogger<EventsController> logger,
             UserManager<EventuresUser> userManager,
+            IEventuresEventService eventService,
+            IEventuresOrdersService ordersService,
             IMapper mapper)
         {
-            this.db = context;
             this._logger = logger;
             this.userManager = userManager;
+            this.eventService = eventService;
+            this.ordersService = ordersService;
             this.mapper = mapper;
         }
 
@@ -38,7 +42,7 @@ namespace Eventures.Controllers
         {
             if (this.User.IsInRole("Admin"))
             {
-                var allEvents = this.db.Events.ToList();
+                var allEvents = this.eventService.GetAllEvents().ToList();
 
                 var adminModel = new AllEventsViewModel
                 {
@@ -51,7 +55,7 @@ namespace Eventures.Controllers
             }
 
             var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
-            var events = this.db.Events.Select(o => new OrderViewModel
+            var events = this.eventService.GetAllEvents().Select(o => new OrderViewModel
             {
                 Customer = user,
                 EventId = o.Id.ToString(),
@@ -85,7 +89,7 @@ namespace Eventures.Controllers
         public async Task<IActionResult> MyEvents()
         {
             var user = await this.userManager.FindByNameAsync(this.User.Identity.Name);
-            var events = this.db.Orders.Where(o => o.Customer == user).Select(o => new EventViewModel(o.TicketCount)
+            var events = this.ordersService.GetOrdersByUser(user).Select(o => new EventViewModel(o.TicketCount)
             {
                 Name = o.Event.Name,
                 Start = o.Event.Start,
@@ -116,8 +120,7 @@ namespace Eventures.Controllers
             if (ModelState.IsValid)
             {
                 var newEvent = mapper.Map<Eventures.Models.Event>(model);
-                this.db.Events.Add(newEvent);
-                this.db.SaveChanges();
+                this.eventService.AddEvent(newEvent);
             }
 
             return RedirectToAction("AllEvents", "Events");
