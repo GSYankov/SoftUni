@@ -20,14 +20,14 @@ namespace Eventures.Controllers
         private readonly ILogger<EventsController> _logger;
 
         private readonly UserManager<EventuresUser> userManager;
-        private readonly IEventuresEventService eventService;
+        private readonly IEventuresEventsService eventService;
         private readonly IEventuresOrdersService ordersService;
         private readonly IMapper mapper;
 
         public EventsController(
             ILogger<EventsController> logger,
             UserManager<EventuresUser> userManager,
-            IEventuresEventService eventService,
+            IEventuresEventsService eventService,
             IEventuresOrdersService ordersService,
             IMapper mapper)
         {

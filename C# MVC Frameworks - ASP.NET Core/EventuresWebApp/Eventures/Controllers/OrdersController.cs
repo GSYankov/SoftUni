@@ -18,11 +18,11 @@ namespace Eventures.Controllers
         private readonly UserManager<EventuresUser> userManager;
 
         private readonly IEventuresOrdersService ordersService;
-        private readonly IEventuresEventService eventService;
+        private readonly IEventuresEventsService eventService;
 
         public OrdersController(UserManager<EventuresUser> userManager,
             IEventuresOrdersService ordersService,
-            IEventuresEventService eventService)
+            IEventuresEventsService eventService)
         {
             this.userManager = userManager;
             this.ordersService = ordersService;

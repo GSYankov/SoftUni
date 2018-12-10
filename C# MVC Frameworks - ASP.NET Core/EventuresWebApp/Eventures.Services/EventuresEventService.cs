@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Eventures.Services
 {
-    public class EventuresEventService : EventuresBaseService, IEventuresEventService
+    public class EventuresEventService : EventuresBaseService, IEventuresEventsService
     {
         public EventuresEventService(EventuresDbContext db) : base(db) { }
 

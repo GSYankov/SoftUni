@@ -74,7 +74,7 @@ namespace Eventures
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 });
 
-            services.AddScoped<IEventuresEventService, EventuresEventService>();
+            services.AddScoped<IEventuresEventsService, EventuresEventService>();
             services.AddScoped<IEventuresOrdersService, EventuresOrdersService>();
             services.AddScoped<IEventuresUsersService, EventuresUsersService>();
 

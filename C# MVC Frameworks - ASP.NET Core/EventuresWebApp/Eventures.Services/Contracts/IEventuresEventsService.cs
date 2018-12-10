@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Eventures.Services.Contracts
 {
-    public interface IEventuresEventService
+    public interface IEventuresEventsService
     {
         Event FindById(string id);
 
