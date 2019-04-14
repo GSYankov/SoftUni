@@ -1,0 +1,9 @@
+{{> header}}
+<main id="site-content">
+    {{#if isAuth}}
+    {{> dashboard}}
+    {{else}}
+    {{> basic}}
+    {{/if}}
+</main>
+{{> footer}}
