@@ -1,0 +1,29 @@
+body {
+    overflow: hidden;
+}
+
+section.card {
+    display: block;
+    position: absolute;
+}
+
+div.viewport {
+    height: 50vh;
+}
+
+.viewport {}
+
+.bg1 {
+    background: rgb(24, 91, 157);
+    background: linear-gradient(90deg, rgba(24, 91, 157, 1) 1%, rgba(66, 204, 161, 1) 100%);
+}
+
+.bg2 {
+    background: rgb(168, 50, 119);
+    background: linear-gradient(90deg, rgba(168, 50, 119, 1) 0%, rgba(210, 130, 18, 1) 100%);
+}
+
+.center {
+    margin: 25vh 0 0 50vw;
+    transform: translate(-50%, -50%)
+}
