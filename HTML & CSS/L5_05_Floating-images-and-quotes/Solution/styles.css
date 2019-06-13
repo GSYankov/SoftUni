@@ -1,0 +1,94 @@
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+.cleaner::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+html {
+    font: 16px/1.5 Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    width: 1000px;
+    margin: 0 auto;
+    background-color: rgb(238, 238, 238);
+}
+
+h1,
+h2 {
+    padding-bottom: 1.5rem;
+}
+
+header hr {
+    padding: 0.1rem;
+    border: none;
+    background-color: black;
+    margin: 2rem 0rem;
+}
+
+blockquote {
+    font-family: Georgia, serif;
+}
+
+.site-title {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 4rem;
+    margin-top: 6rem;
+}
+
+.site-main p {
+    font-size: 1rem;
+    padding-bottom: 2rem;
+}
+
+img.align-right {
+    width: 20%;
+    height: auto;
+    float: right;
+    border: 3px solid;
+    padding: 0.6rem;
+    margin-left: 1rem;
+}
+
+img.align-left {
+    width: 20%;
+    height: auto;
+    float: left;
+    border: 3px solid;
+    padding: 0.6rem;
+    margin-right: 1rem;
+    margin-bottom: 2rem;
+}
+
+main p {
+    font-size: 1rem;
+    text-align: left;
+}
+
+.site-main .pleft {
+    margin-left: 2rem;
+    width: 50%;
+    float: right;
+    margin-bottom: 2rem;
+    border-left: 0.2rem solid rgb(230, 230, 230);
+    padding-right: 2rem;
+    padding-left: 2rem;
+    font-style: italic;
+}
+
+.site-main .author {
+    display: block;
+    text-align: right;
+    font-style: italic;
+}
