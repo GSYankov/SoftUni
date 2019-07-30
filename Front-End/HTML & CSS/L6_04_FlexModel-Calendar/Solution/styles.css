@@ -1,0 +1,43 @@
+* {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    max-width: 65vw;
+    margin: 20vh auto;
+}
+
+.week {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.notes {
+    display: flex;
+}
+
+span {
+    border: 1px black solid;
+    height: 25vh;
+    width: 20%;
+    flex-grow: 1;
+}
+
+.container .week span:nth-child(1) {
+    flex: 0 1 100%;
+}
+
+.container .week span:nth-child(7) {
+    flex: 0 1 100%;
+}
+
+.notes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

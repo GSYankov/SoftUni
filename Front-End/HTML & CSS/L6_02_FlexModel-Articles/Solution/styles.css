@@ -1,0 +1,29 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font: 16px/1.5 Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-family: Georgia, serif;
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+.container {
+    margin: 10rem auto;
+    max-width: 70vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item {
+    flex: 0 1 19%;
+}

@@ -1,0 +1,61 @@
+@import url('https://use.fontawesome.com/releases/v5.9.0/css/all.css');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap');
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font: 20px/1.5 Ubuntu, sans-serif;
+    box-sizing: border-box;
+}
+
+section {
+    width: 1200px;
+    margin: 5em auto;
+    background: url('../Requirements-and-Resources/images/image.jpg') center;
+    background-size: cover;
+    color: #fff;
+    position: relative;
+    z-index: 0;
+}
+
+section::after {
+    position: absolute;
+    content: '';
+    background: rgba(0, 0, 128, 0.75);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.close {
+    display: block;
+    width: 1em;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.cards-holder {
+    display: flex;
+    padding: 1.2em 0 5em 0;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.cards-holder .card {
+    flex: 0 0 25%;
+    text-align: center;
+}
+
+.cards-holder .card .icon {
+    color: #ec8421;
+    font-size: 2em;
+    padding-bottom: 0.3em;
+}

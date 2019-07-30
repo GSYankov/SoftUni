@@ -1,0 +1,94 @@
+ @import url('https://use.fontawesome.com/releases/v5.9.0/css/all.css');
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: inherit;
+ }
+ 
+ html {
+     box-sizing: inherit;
+ }
+ 
+ form {
+     padding-top: 3rem;
+     width: 50%;
+     margin: 0 auto;
+ }
+ 
+ form legend {
+     border: 2px solid #6c6c6c;
+     padding: 0.5rem 1.5rem;
+     padding-right: 2rem;
+     border-radius: 0.3rem;
+     margin-left: -1.2rem;
+ }
+ 
+ form fieldset {
+     border: 2px solid #6c6c6c;
+     padding: 1rem 1rem;
+ }
+ 
+ form fieldset {
+     padding: 0.5rem;
+     align-items: center;
+     border: 1px solid #a9a9a9;
+ }
+ 
+ form input {
+     order: 2;
+ }
+ 
+ form span {
+     display: none;
+ }
+ 
+ form label {
+     display: block;
+     width: 5rem;
+     font-weight: bold;
+     order: 1;
+     background-color: white;
+     color: black;
+     border-top-left-radius: 0.3rem;
+     border-bottom-left-radius: 0.3rem;
+ }
+ 
+ form label::before {
+     padding-left: 0.5rem;
+     font-family: "Font Awesome 5 Free";
+ }
+ 
+ form label[name="ico-user"]::before {
+     content: '\f007';
+ }
+ 
+ form label[name="ico-pass"]::before {
+     content: '\f084';
+ }
+ 
+ form fieldset p {
+     display: flex;
+     margin: 1rem;
+ }
+ 
+ form fieldset p label:nth-child(2) {
+     width: 1.5rem;
+     border: 1px #a9a9a9 solid;
+     border-right: none;
+ }
+ 
+ form fieldset .field input {
+     border: 1px #a9a9a9 solid;
+     border-left: none;
+     border-top-right-radius: 0.3rem;
+     border-bottom-right-radius: 0.3rem;
+ }
+ 
+ form fieldset input[type="submit"] {
+     background-color: #2d2d2d;
+     border: none;
+     color: #fff;
+     padding: 0.3rem 0.8rem;
+     border-radius: 0.3rem;
+     margin-left: 1rem;
+ }

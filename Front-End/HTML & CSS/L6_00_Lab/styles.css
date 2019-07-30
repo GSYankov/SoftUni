@@ -1,0 +1,12 @@
+.curtein {
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-holder {
+    position: absolute;
+    top: 0;
+}

@@ -1,0 +1,64 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font: 16px/1.2 Montserrat, sans-serif;
+    box-sizing: border-box;
+}
+
+form {
+    background-color: rgb(173, 216, 230);
+    max-width: 30rem;
+    margin: 3rem auto;
+}
+
+form fieldset {
+    border: none;
+}
+
+form p {
+    display: flex;
+    align-items: center;
+}
+
+form label {
+    padding-left: 2rem;
+    flex: 0 0 30%;
+}
+
+form input {
+    display: block;
+    flex: 0 0 50%;
+    margin: 0.5rem 0;
+}
+
+form .form-header {
+    padding-top: 3rem;
+    text-align: center;
+}
+
+form .radio {
+    display: flex;
+    align-items: center;
+}
+
+form .radio input {
+    flex-basis: 0%;
+    margin-right: 0.2rem;
+}
+
+form .radio input:nth-child(4) {
+    margin-left: 1.5rem;
+}
+
+form input[type="checkbox"] {
+    flex: 0 0 15%
+}
+
+form label[for="disclaimer"] {
+    flex: 0 0 80%;
+    margin: 3rem 0;
+}

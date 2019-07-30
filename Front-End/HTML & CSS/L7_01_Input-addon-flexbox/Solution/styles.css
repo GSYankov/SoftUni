@@ -1,0 +1,140 @@
+@import url('https://use.fontawesome.com/releases/v5.9.0/css/all.css');
+* {
+    box-sizing: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+    font: 14px/1.5 Verdana, sans-serif;
+}
+
+body,
+form,
+fieldset,
+input {
+    font: inherit;
+}
+
+body {
+    padding: 2rem;
+}
+
+form {
+    max-width: 30rem;
+    margin: 0rem auto;
+}
+
+form fieldset {
+    display: block;
+    border: 2px solid #999;
+    padding: 2rem;
+    border-radius: 0.3rem;
+}
+
+form fieldset p {
+    padding-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    text-align: right;
+}
+
+form legend {
+    font-weight: bold;
+    display: inline-block;
+    padding: 0 0.5rem;
+    margin-left: -0.5rem;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    padding-right: 1rem;
+    min-width: 8rem;
+}
+
+form input {
+    border-color: #000000;
+    display: block;
+    width: 100%;
+    outline: none;
+    border-radius: 0.3rem;
+}
+
+form input[type='text'],
+form input[type='email'],
+form input[type='password'] {
+    padding: 0.5rem 1rem;
+    border: 2px solid #999;
+}
+
+form input[type='text']:hover,
+form input[type='text']:focus,
+form input[type='email']:hover,
+form input[type='email']:focus,
+form input[type='password']:hover,
+form input[type='password']:focus {
+    border-color: #369;
+}
+
+form input[type='submit'] {
+    padding: 0.5rem 1rem;
+    border: 2px solid #369;
+    background: #369;
+    color: #fff;
+    border-radius: 0.3em;
+    cursor: pointer;
+}
+
+form input[type='submit']:hover,
+form input[type='submit']:focus {
+    background: #fff;
+    color: #369;
+}
+
+form .field-icon {
+    align-items: stretch;
+}
+
+form .field-icon input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    order: 2;
+}
+
+form .field-icon label {
+    min-width: auto;
+    background-color: #999;
+    color: #fff;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+    border-top-left-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+}
+
+form .field-icon input:focus+label,
+form .field-icon input:hover+label {
+    background-color: #369
+}
+
+form .field-icon label span {
+    display: none
+}
+
+form .field-icon label[for='username']::before {
+    display: block;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900px;
+    content: '\f007';
+}
+
+form .field-icon label[for='pass']::before {
+    display: block;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900px;
+    content: '\f084';
+}

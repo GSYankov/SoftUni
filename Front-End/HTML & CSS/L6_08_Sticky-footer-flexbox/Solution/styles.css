@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 85vw;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(238, 238, 238);
+}
+
+h1 {
+    margin: 2rem 0
+}
+
+p {
+    margin: 1rem 0
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px rgb(0, 0, 0) solid;
+    flex: 0 0 100%;
+}
+
+header p {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 2rem;
+}
+
+header ul {
+    display: flex;
+}
+
+header ul li {
+    list-style: none;
+    line-height: 0.8rem;
+}
+
+header ul li:not(:last-child) {
+    margin-right: 2rem
+}
+
+header ul li a {
+    text-decoration: none;
+    color: rgb(0, 153, 0)
+}
+
+footer {
+    background-color: rgb(102, 102, 102);
+    flex: 0 0 100%;
+    color: rgb(255, 255, 255)
+}
+
+footer p {
+    padding: 0 3rem;
+}

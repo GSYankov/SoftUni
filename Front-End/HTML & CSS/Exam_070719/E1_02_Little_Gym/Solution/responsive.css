@@ -1,0 +1,51 @@
+@media (max-width:1025px) {
+    .site-logos-container {
+        display: flex;
+    }
+    .site-logo img {
+        width: 8rem;
+    }
+}
+
+@media (max-width:769px) {
+    html {
+        font-size: 14px;
+    }
+    .site-logos-container {
+        flex-wrap: wrap;
+        flex-basis: 35%;
+        justify-content: space-between;
+    }
+    .site-logo {
+        margin-right: 2rem;
+    }
+    .site-logo img {
+        width: 10.5rem;
+    }
+    .site-information {
+        display: block;
+        text-align: center;
+    }
+    .site-information-image {
+        display: none;
+    }
+    .entry-description {
+        width: 100%;
+    }
+    .site-form form>p {
+        flex-direction: column;
+    }
+    .site-form input {
+        width: 100%
+    }
+    .site-form button {
+        display: inline-block;
+    }
+    .site-posts {
+        display: block;
+    }
+    .site-footer {
+        display: block;
+        text-align: center;
+    }
+}

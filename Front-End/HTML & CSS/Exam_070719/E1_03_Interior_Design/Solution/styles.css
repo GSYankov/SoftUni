@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Roboto:400,700&display=swap');
+@import url('https://use.fontawesome.com/releases/v5.9.0/css/all.css');
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font: 16px/1.5 Roboto, serif;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-family: 'Abril Fatface';
+    font-size: 2.6em;
+    text-transform: uppercase;
+}
+
+body {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+header {
+    background: url('../Requirements-and-Resources/image/image.jpg') center center;
+    background-size: cover;
+    height: 53em;
+    position: relative;
+}
+
+.site-branding {
+    margin-left: 2em;
+    padding: 2em 1em;
+    width: 15em;
+    box-shadow: 7px 2px 5px 3px rgba(0, 0, 0, 0.75);
+    position: absolute;
+    top: 3em;
+    left: 2em;
+}
+
+.site-branding .site-title {
+    font-family: 'Abril Fatface';
+    font-size: 2em;
+    font-weight: bold;
+    width: 75%;
+    border-bottom: 3px solid #fff;
+}
+
+.site-info {
+    box-shadow: 7px 2px 5px 3px rgba(0, 0, 0, 0.75);
+    background: rgb(186, 177, 173);
+    background: linear-gradient(90deg, rgba(186, 177, 173, 1) 0%, rgba(98, 96, 95, 1) 0%, rgba(221, 212, 212, 1) 80%);
+    width: 25%;
+    color: white;
+    text-align: right;
+    position: relative;
+    top: 13em;
+    left: 46em;
+    padding: 2em 1em 2em 1em;
+}
+
+.site-info span {
+    display: block;
+}
+
+.wrapper {
+    display: flex;
+}
+
+main {
+    flex: 0 0 70%;
+    background-color: #f2f0f3;
+}
+
+main section {
+    padding: 3em 5em;
+}
+
+main .services ul li {
+    display: block;
+    margin: 1.5em 0;
+}
+
+main .services ul li strong {
+    text-transform: uppercase;
+    padding-left: 1em;
+}
+
+main .contact {
+    padding-top: 0;
+}
+
+main .contact h1 {
+    border-bottom: 2px solid black;
+}
+
+main .contact ul {
+    padding: 2em 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+main .contact ul li {
+    display: block;
+}
+
+main .contact ul li:not(:nth-child(1)):not(:nth-child(5)) {
+    padding-left: 1em;
+}
+
+main .contact ul li strong {
+    font-style: italic;
+}
+
+main .contact form input,
+main .contact form input[type="email"]::placeholder {
+    padding: 0.8em;
+    color: #fff;
+}
+
+main .contact form input[type="submit"] {
+    background-color: #67784d;
+    border: none;
+    border-radius: 3px;
+}
+
+main .contact form input[type="email"] {
+    background-color: #bab1ad;
+    width: 50%;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+}
+
+aside {
+    flex: 0 0 30%;
+    background-color: #bab1ad;
+}
+
+aside ul {
+    padding: 3em 0 0 2em;
+}
+
+aside ul li {
+    display: block;
+}
+
+aside ul li:not(:first-child) {
+    padding-top: 7em;
+}
+
+aside ul li .value {
+    color: #fff;
+    font-size: 5em;
+    line-height: 1;
+}
+
+aside ul li .description {
+    text-transform: uppercase;
+    opacity: 0.8;
+    line-height: 1;
+}
