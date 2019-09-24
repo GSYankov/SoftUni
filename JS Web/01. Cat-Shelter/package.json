@@ -1,0 +1,14 @@
+{
+  "name": "cat-shelter",
+  "version": "1.0.0",
+  "description": "cats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GY",
+  "license": "MIT",
+  "dependencies": {
+    "formidable": "^1.2.1"
+  }
+}
