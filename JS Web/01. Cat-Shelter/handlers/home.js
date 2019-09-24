@@ -7,7 +7,7 @@ const cats = require('../data/cats');
 module.exports = (req, res) => {
     const pathname = url.parse(req.url).pathname;
 
-    if (pathname === '/' && req.method === 'GET') {
+    if (pathname === '/' || pathname.includes('/search') && req.method === 'GET') {
 
         let filePath = path.normalize(
             path.join(__dirname, '../views/home/index.html')
@@ -29,6 +29,18 @@ module.exports = (req, res) => {
 
                 viewCats = JSON.parse(allCats);
 
+                let searchedData = data;
+                if (req.url.includes('/search')) {
+                    let query = req.url.split('q=')[1];
+
+                    viewCats = viewCats.filter(function(cat) {
+                        return cat.name.includes(query);
+                    });
+
+                    searchedData = data.toString().replace('<input type="text" name="q" required/>',
+                        `<input type="text" name="q" value="${query}" required/>`);
+                }
+
                 let catsTemplate = viewCats.map((cat) => `<li>
                 <img src="${path.join('./content/images/' + cat.image)}" alt="${cat.name}">
                 <h3>${cat.name}</h3>
@@ -39,7 +51,7 @@ module.exports = (req, res) => {
                 <li class="btn delete"><a href="/cats-find-new-home/${cat.id}">New Home</a></li>
                 </ul>
                 </li>`);
-                let modifiedData = data.toString().replace('{{cats}}', catsTemplate);
+                let modifiedData = searchedData.toString().replace('{{cats}}', catsTemplate);
 
                 res.writeHead(200, {
                     'ContentType': 'text/html'
