@@ -7,6 +7,7 @@ module.exports = app => {
     app.get('/create', cubeController.create);
     app.post('/create', cubeController.createPost);
     app.get('/details/:cubeId', cubeController.details);
+    app.post('/delete', cubeController.delete);
 
     //The 404 Route (ALWAYS Keep this as the last route)
     app.get('*', homeController.error);

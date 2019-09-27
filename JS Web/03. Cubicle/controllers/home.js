@@ -1,31 +1,40 @@
 const cubes = require('../config/database.json');
+const fs = require('fs');
 
 module.exports = {
     home: (req, res) => {
-        let allCubes = cubes;
+        let allCubes;
         let search = req.query.search;
         let from = req.query.from;
         let to = req.query.to;
 
-        if (from) {
-            allCubes = cubes.filter((cube) => {
-                return cube.level >= from;
-            });
-        }
+        fs.readFile('./config/database.json', 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            };
 
-        if (to) {
-            allCubes = allCubes.filter((cube) => {
-                return cube.level <= to;
-            });
-        }
+            allCubes = JSON.parse(data);
 
-        if (search) {
-            allCubes = allCubes.filter((cube) => {
-                return cube.name.toUpperCase().includes(search.toUpperCase());
-            });
-        }
+            if (from) {
+                allCubes = cubes.filter((cube) => {
+                    return cube.level >= from;
+                });
+            }
 
-        res.render('index', { allCubes, search, from, to })
+            if (to) {
+                allCubes = allCubes.filter((cube) => {
+                    return cube.level <= to;
+                });
+            }
+
+            if (search) {
+                allCubes = allCubes.filter((cube) => {
+                    return cube.name.toUpperCase().includes(search.toUpperCase());
+                });
+            }
+
+            res.render('index', { allCubes, search, from, to })
+        });
     },
     about: (req, res) => {
         res.render('about');

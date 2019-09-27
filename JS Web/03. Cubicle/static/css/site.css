@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
 body {
     margin: 0;
     padding: 0;
@@ -90,14 +89,15 @@ p.name {
     border-bottom: 1px solid #2b415433;
 }
 
-button, main a.btn {
+button,
+main a.btn {
     border: none;
     padding: 8px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
-    width: 43%;
+    width: 36%;
     margin: 12px;
     margin-left: 6%;
     border-radius: 4px;
@@ -140,7 +140,6 @@ div.about {
     padding: 3em;
 }
 
-
 div.about a {
     text-decoration: none;
     color: #0B2133;
@@ -153,6 +152,25 @@ form label {
     padding: 12px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+}
+
+form.delete {
+    display: inline;
+}
+
+form.delete button {
+    border: none;
+    padding: 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    width: 36%;
+    margin: 12px;
+    margin-left: 6%;
+    border-radius: 4px;
+    background: red;
+    color: white;
 }
 
 input[type=text],
@@ -220,12 +238,12 @@ span.error {
     display: block;
 }
 
-img#sadFaceImg{
+img#sadFaceImg {
     display: block;
     margin: 0 auto;
 }
 
-h2{
+h2 {
     text-align: center;
 }
 
@@ -237,15 +255,14 @@ footer {
     font-size: 20px;
 }
 
+
 /*Animations & Transitions
 */
-
 
 @-webkit-keyframes fadeOut {
     from {
         opacity: 1;
     }
-
     to {
         opacity: 0;
     }
@@ -255,7 +272,6 @@ footer {
     from {
         opacity: 1;
     }
-
     to {
         opacity: 0;
     }
