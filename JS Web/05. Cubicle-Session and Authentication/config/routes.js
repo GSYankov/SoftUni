@@ -2,6 +2,7 @@ const homeController = require('../controllers/home');
 const cubeController = require('../controllers/cube');
 const accessoryController = require('../controllers/accessory');
 const userController = require('../controllers/user');
+const authenticate = require('../middleware/authentication')
 
 module.exports = (app) => {
     app.get('/create/accessory', accessoryController.createGet);
@@ -18,11 +19,12 @@ module.exports = (app) => {
     app.post('/delete', cubeController.postDelete);
 
     app.get('/login', userController.getLogin);
-    //app.post('login', cubeController.getEdit);
+    app.post('/login', userController.postLogin);
     app.get('/register', userController.getRegister);
-    //app.post('register', cubeController.getEdit);
-    //app.post('logout', cubeController.getEdit);
+    app.post('/register', userController.postRegister);
+    //app.get('/secret', userController.auth(4), userController.getSecret);
+    app.get('/logout', userController.getLogout);
 
 
-    app.get('/', homeController.index);
+    app.get('/', authenticate.auth(), homeController.index);
 };

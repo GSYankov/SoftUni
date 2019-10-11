@@ -2,6 +2,7 @@ const { cubeModel } = require('../models');
 
 function index(req, res, next) {
     const { from, to, search } = req.query;
+    const username = req.user ? req.user.username : null;
     let query = {};
     if (search) {
         query = {...query, name: { $regex: search, $options: 'i' } };
@@ -21,7 +22,8 @@ function index(req, res, next) {
             cubes,
             search,
             from,
-            to
+            to,
+            username
         });
     }).catch(next);
 }
